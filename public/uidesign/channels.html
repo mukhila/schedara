@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Channels · Schedara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink:'#021b2e', paper:'#f5fefe', line:'#e3e9ee',
+            brand: { 50:'#eef5fb',100:'#dceaf5',200:'#b4cfe8',300:'#8bb4dc',400:'#65a1d8',500:'#4a8ccc',600:'#2f76bd',700:'#235b95',800:'#18406d' },
+            mint:'#22B07E', gold:'#FDBB1F', coral:'#FF401C',
+          },
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="assets/schedara.css" />
+  <style>
+    .schedara-wing { stroke: #65a1d8; stroke-width: 2.4; stroke-linecap: round; fill: none; }
+    /* Channel mini-card */
+    .chan-card {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 16px; padding: 20px;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .chan-card:hover { border-color: var(--brand-300); box-shadow: 0 12px 36px -12px rgba(2,27,46,0.12); }
+    .chan-logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: grid; place-items: center;
+      color: #fff; font-weight: 800; font-size: 16px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="app-side">
+    <a href="dashboard.html" class="app-side-brand">
+      <span class="s-mark invert">
+        <svg viewBox="0 0 32 32" class="schedara-wing" style="stroke: var(--ink);">
+          <path d="M4 22 C 10 13, 19 10, 28 11"/>
+          <path d="M8 22 C 13 16, 20 14, 27 15" opacity=".7"/>
+          <path d="M12 22 C 16 19, 22 17, 27 19" opacity=".45"/>
+        </svg>
+      </span>
+      <span class="name">Schedara</span>
+    </a>
+
+    <nav class="flex-1 overflow-y-auto -mx-2 px-2">
+      <div class="app-side-group">Insights</div>
+      <a href="dashboard.html" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 5-7"/></svg>
+        Analytics
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Reports
+      </a>
+
+      <div class="app-side-group">Publish</div>
+      <a href="calendar.html" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+        Calendar
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 12h18"/></svg>
+        Composer
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+        Queue
+      </a>
+
+      <div class="app-side-group">Engage</div>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 1 1-3.4-6.8L21 3v6h-6"/></svg>
+        Inbox
+        <span class="ml-auto text-[10px] font-bold text-white px-1.5 py-0.5 rounded-full" style="background:var(--coral)">12</span>
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+        Mentions
+      </a>
+
+      <div class="app-side-group">Workspace</div>
+      <a href="channels.html" class="app-side-link active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.2 4.2l4.3 4.3M15.5 15.5l4.3 4.3M1 12h6M17 12h6M4.2 19.8l4.3-4.3M15.5 8.5l4.3-4.3"/></svg>
+        Channels
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+        Team
+      </a>
+      <a href="#" class="app-side-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8 2 2 0 1 1-2.8 2.8 1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5 2 2 0 0 1-4 0 1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3 2 2 0 1 1-2.8-2.8 1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1 2 2 0 0 1 0-4 1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8 2 2 0 1 1 2.8-2.8 1.7 1.7 0 0 0 1.8.3 1.7 1.7 0 0 0 1-1.5 2 2 0 0 1 4 0 1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3 2 2 0 1 1 2.8 2.8 1.7 1.7 0 0 0-.3 1.8 1.7 1.7 0 0 0 1.5 1 2 2 0 0 1 0 4 1.7 1.7 0 0 0-1.5 1z"/></svg>
+        Settings
+      </a>
+    </nav>
+
+    <div class="app-side-footer">
+      <a href="signin.html" class="app-side-user">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-300 to-brand-700"></div>
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-bold text-white truncate">Priya Anand</div>
+          <div class="text-xs text-white/50 truncate">NorthSails Apparel</div>
+        </div>
+        <svg class="w-4 h-4 opacity-50" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 5l5 5-5 5"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="app-main">
+
+    <!-- Topbar -->
+    <div class="app-top">
+      <div class="app-search">
+        <svg class="w-4 h-4 text-ink/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="Search a platform or account…" />
+        <kbd>⌘K</kbd>
+      </div>
+      <div class="app-top-actions">
+        <button class="app-icon-btn"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2-3 4M12 17h.01"/></svg></button>
+        <button class="app-icon-btn">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21a2 2 0 0 0 4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <button class="bg-ink text-white text-sm font-bold px-4 py-2.5 rounded-lg flex items-center gap-1.5 hover:bg-brand-800">
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 4v12M4 10h12" stroke-linecap="round"/></svg>
+          Connect account
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="app-content">
+
+      <!-- Page header -->
+      <div class="flex items-start justify-between gap-4 flex-wrap mb-6">
+        <div>
+          <div class="text-xs font-bold uppercase tracking-[2px] text-brand-600 mb-2">Workspace</div>
+          <h1 class="text-3xl font-extrabold tracking-tight">Channels</h1>
+          <p class="text-ink/60 mt-1">Connect every social account you want to publish from, in one place.</p>
+        </div>
+
+        <!-- Workspace pill -->
+        <div class="flex items-center gap-2 bg-white border border-line rounded-lg px-3 py-2">
+          <div class="w-6 h-6 rounded-md bg-gradient-to-br from-brand-300 to-brand-700"></div>
+          <div>
+            <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold leading-none">Workspace</div>
+            <div class="text-sm font-bold leading-tight">NorthSails Apparel</div>
+          </div>
+          <svg class="w-4 h-4 text-ink/40 ml-2" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5.5 7.5l4.5 4.5 4.5-4.5"/></svg>
+        </div>
+      </div>
+
+      <!-- Summary stats strip -->
+      <div class="card p-6 mb-6 relative overflow-hidden" style="background: linear-gradient(135deg, #021b2e 0%, #18406d 100%);">
+        <div class="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-brand-400/20 blur-3xl"></div>
+        <div class="relative grid grid-cols-2 lg:grid-cols-4 gap-6 text-white">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-300">Connected</div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="text-4xl font-extrabold">5</span>
+              <span class="text-white/50 text-sm">accounts</span>
+            </div>
+            <div class="mt-1 text-xs text-white/60">Across 4 platforms</div>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-300">Total reach</div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="text-4xl font-extrabold">142k</span>
+              <span class="text-mint text-sm" style="color:#48d8a3">+8.2%</span>
+            </div>
+            <div class="mt-1 text-xs text-white/60">Followers across all channels</div>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-300">Scheduled</div>
+            <div class="mt-2 flex items-baseline gap-2">
+              <span class="text-4xl font-extrabold">28</span>
+              <span class="text-white/50 text-sm">posts</span>
+            </div>
+            <div class="mt-1 text-xs text-white/60">Next 7 days</div>
+          </div>
+          <div>
+            <div class="text-xs font-bold uppercase tracking-wider text-brand-300">Health</div>
+            <div class="mt-2 flex items-center gap-2">
+              <span class="live-dot"></span>
+              <span class="text-2xl font-extrabold">Healthy</span>
+            </div>
+            <div class="mt-1 text-xs text-white/60">No connections expiring soon</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter tabs -->
+      <div class="flex items-center justify-between flex-wrap gap-3 mb-5">
+        <div class="inline-flex items-center bg-white border border-line rounded-lg p-1">
+          <button class="px-4 py-2 rounded-md text-sm font-bold bg-ink text-white flex items-center gap-1.5">
+            All <span class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full">13</span>
+          </button>
+          <button class="px-4 py-2 rounded-md text-sm font-bold text-ink/60 flex items-center gap-1.5">
+            Connected <span class="text-[10px] bg-mint-50 px-1.5 py-0.5 rounded-full" style="color:#22B07E">5</span>
+          </button>
+          <button class="px-4 py-2 rounded-md text-sm font-bold text-ink/60 flex items-center gap-1.5">
+            Available <span class="text-[10px] bg-line px-1.5 py-0.5 rounded-full">7</span>
+          </button>
+          <button class="px-4 py-2 rounded-md text-sm font-bold text-ink/60 flex items-center gap-1.5">
+            Needs reauth <span class="text-[10px] bg-coral-50 px-1.5 py-0.5 rounded-full" style="color:#FF401C">1</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button class="bg-white border border-line text-ink/70 font-semibold text-sm px-3 py-2 rounded-lg hover:border-brand-300 flex items-center gap-1.5">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9c2.5 0 4.7 1 6.4 2.6L21 8M21 3v5h-5"/></svg>
+            Refresh
+          </button>
+          <button class="bg-white border border-line text-ink/70 font-semibold text-sm px-3 py-2 rounded-lg hover:border-brand-300 flex items-center gap-1.5">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== CONNECTED ACCOUNTS ===== -->
+      <div class="mb-2 flex items-center justify-between">
+        <h2 class="text-sm font-bold uppercase tracking-[2px] text-ink/60">Connected accounts</h2>
+        <span class="text-xs text-ink/50">Last synced 2 min ago</span>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+
+        <!-- Instagram -->
+        <div class="chan-card">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="chan-logo chan-ig">IG</span>
+              <div>
+                <div class="font-bold leading-tight">Instagram</div>
+                <div class="text-xs text-ink/50 mt-0.5">Business · Auto-publish</div>
+              </div>
+            </div>
+            <span class="pill pill-mint pill-dot">Live</span>
+          </div>
+
+          <div class="mt-5 flex items-center gap-2.5 p-2.5 bg-paper rounded-xl">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-300 to-brand-700 shrink-0"></div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold truncate">@northsails</div>
+              <div class="text-xs text-ink/50 truncate">NorthSails Apparel · 42.1k followers</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">7d posts</div>
+              <div class="text-lg font-extrabold">14</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Engage</div>
+              <div class="text-lg font-extrabold">54.2k</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Rate</div>
+              <div class="text-lg font-extrabold">12.4%</div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <button class="flex-1 bg-white border border-line text-ink text-xs font-bold py-2 rounded-lg hover:border-brand-300">Manage</button>
+            <button class="w-9 h-9 grid place-items-center bg-white border border-line rounded-lg text-ink/50 hover:text-coral hover:border-coral/30">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v0a3 3 0 0 1 6 0v0M3 7h18M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Facebook -->
+        <div class="chan-card">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="chan-logo chan-fb">f</span>
+              <div>
+                <div class="font-bold leading-tight">Facebook</div>
+                <div class="text-xs text-ink/50 mt-0.5">Page · Auto-publish</div>
+              </div>
+            </div>
+            <span class="pill pill-mint pill-dot">Live</span>
+          </div>
+
+          <div class="mt-5 flex items-center gap-2.5 p-2.5 bg-paper rounded-xl">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-800 shrink-0"></div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold truncate">NorthSails Apparel</div>
+              <div class="text-xs text-ink/50 truncate">Page · 28.4k likes</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">7d posts</div>
+              <div class="text-lg font-extrabold">9</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Engage</div>
+              <div class="text-lg font-extrabold">12.8k</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Rate</div>
+              <div class="text-lg font-extrabold">4.5%</div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <button class="flex-1 bg-white border border-line text-ink text-xs font-bold py-2 rounded-lg hover:border-brand-300">Manage</button>
+            <button class="w-9 h-9 grid place-items-center bg-white border border-line rounded-lg text-ink/50 hover:text-coral hover:border-coral/30">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v0a3 3 0 0 1 6 0v0M3 7h18M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- X -->
+        <div class="chan-card">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="chan-logo chan-x">𝕏</span>
+              <div>
+                <div class="font-bold leading-tight">X (Twitter)</div>
+                <div class="text-xs text-ink/50 mt-0.5">Premium · Auto-publish</div>
+              </div>
+            </div>
+            <span class="pill pill-mint pill-dot">Live</span>
+          </div>
+
+          <div class="mt-5 flex items-center gap-2.5 p-2.5 bg-paper rounded-xl">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-ink to-brand-800 shrink-0"></div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold truncate">@northsails</div>
+              <div class="text-xs text-ink/50 truncate">NorthSails · 18.2k followers</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">7d posts</div>
+              <div class="text-lg font-extrabold">22</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Engage</div>
+              <div class="text-lg font-extrabold">31.8k</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Rate</div>
+              <div class="text-lg font-extrabold">8.6%</div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <button class="flex-1 bg-white border border-line text-ink text-xs font-bold py-2 rounded-lg hover:border-brand-300">Manage</button>
+            <button class="w-9 h-9 grid place-items-center bg-white border border-line rounded-lg text-ink/50 hover:text-coral hover:border-coral/30">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v0a3 3 0 0 1 6 0v0M3 7h18M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- LinkedIn -->
+        <div class="chan-card">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="chan-logo chan-li">in</span>
+              <div>
+                <div class="font-bold leading-tight">LinkedIn</div>
+                <div class="text-xs text-ink/50 mt-0.5">Company page · Auto-publish</div>
+              </div>
+            </div>
+            <span class="pill pill-mint pill-dot">Live</span>
+          </div>
+
+          <div class="mt-5 flex items-center gap-2.5 p-2.5 bg-paper rounded-xl">
+            <div class="w-9 h-9 rounded-md bg-gradient-to-br from-brand-400 to-brand-700 shrink-0"></div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold truncate">NorthSails Apparel</div>
+              <div class="text-xs text-ink/50 truncate">Company · 12.7k followers</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">7d posts</div>
+              <div class="text-lg font-extrabold">5</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Engage</div>
+              <div class="text-lg font-extrabold">4.1k</div>
+            </div>
+            <div class="bg-paper rounded-lg py-2">
+              <div class="text-[10px] uppercase tracking-wider text-ink/40 font-bold">Rate</div>
+              <div class="text-lg font-extrabold">11.2%</div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <button class="flex-1 bg-white border border-line text-ink text-xs font-bold py-2 rounded-lg hover:border-brand-300">Manage</button>
+            <button class="w-9 h-9 grid place-items-center bg-white border border-line rounded-lg text-ink/50 hover:text-coral hover:border-coral/30">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v0a3 3 0 0 1 6 0v0M3 7h18M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- TikTok — needs reauth (alert state) -->
+        <div class="chan-card" style="border-color: #ffb8a8; background: linear-gradient(180deg, #fff5f2 0%, #fff 100%);">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-3">
+              <span class="chan-logo chan-tt">d</span>
+              <div>
+                <div class="font-bold leading-tight">TikTok</div>
+                <div class="text-xs text-ink/50 mt-0.5">Business · Auto-publish</div>
+              </div>
+            </div>
+            <span class="pill pill-coral pill-dot">Reauth</span>
+          </div>
+
+          <div class="mt-5 flex items-center gap-2.5 p-2.5 bg-white rounded-xl border border-coral/20">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-ink to-brand-800 shrink-0"></div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-bold truncate">@northsails.official</div>
+              <div class="text-xs text-coral truncate" style="color:#FF401C">Token expired 2 days ago</div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-xs text-ink/60 leading-relaxed">
+            Scheduled posts are paused until you reconnect. We'll auto-resume the queue once you're back in.
+          </div>
+
+          <div class="mt-4 flex items-center gap-2">
+            <button class="flex-1 bg-coral text-white text-xs font-bold py-2 rounded-lg hover:opacity-90" style="background:#FF401C">Reconnect now</button>
+            <button class="w-9 h-9 grid place-items-center bg-white border border-line rounded-lg text-ink/50 hover:text-coral hover:border-coral/30">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4v0a3 3 0 0 1 6 0v0M3 7h18M5 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- "+ Add account" card -->
+        <a href="#available" class="chan-card flex flex-col items-center justify-center text-center border-dashed hover:bg-brand-50/50 cursor-pointer" style="border: 2px dashed var(--line);">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 grid place-items-center text-brand-600 mb-3">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+          </div>
+          <div class="font-bold">Connect another account</div>
+          <div class="text-xs text-ink/50 mt-1 max-w-[200px]">Add a new platform, brand, or workspace below.</div>
+        </a>
+      </div>
+
+      <!-- ===== AVAILABLE PLATFORMS ===== -->
+      <div id="available" class="mb-2 flex items-center justify-between">
+        <h2 class="text-sm font-bold uppercase tracking-[2px] text-ink/60">Available to connect</h2>
+        <a href="#" class="text-xs font-bold text-brand-600 hover:text-brand-700">Request a platform →</a>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+
+        <!-- YouTube -->
+        <div class="chan-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo chan-yt">▶</span>
+            <div class="font-bold">YouTube</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Schedule long-form, shorts, and community posts.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Threads -->
+        <div class="chan-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo chan-th">@</span>
+            <div class="font-bold">Threads</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Post conversational threads from Schedara.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Pinterest -->
+        <div class="chan-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo chan-pn">P</span>
+            <div class="font-bold">Pinterest</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Schedule pins and create boards.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Bluesky -->
+        <div class="chan-card relative">
+          <span class="absolute top-3 right-3 pill pill-brand">New</span>
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo chan-bs">☁</span>
+            <div class="font-bold">Bluesky</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Cross-post to the AT-protocol network.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Mastodon -->
+        <div class="chan-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo" style="background:#6364FF">M</span>
+            <div class="font-bold">Mastodon</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Federated microblog. Any instance.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Reddit -->
+        <div class="chan-card">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo" style="background:#FF4500">r</span>
+            <div class="font-bold">Reddit</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Submit to subreddits on a schedule.</p>
+          <button class="w-full bg-ink text-white text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brand-800">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+            Connect
+          </button>
+        </div>
+
+        <!-- Snapchat -->
+        <div class="chan-card opacity-80">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo" style="background:#FFFC00; color:#021b2e">S</span>
+            <div class="font-bold">Snapchat</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Stories and Spotlight scheduling.</p>
+          <button class="w-full bg-white border border-line text-ink/60 text-xs font-bold py-2.5 rounded-lg">
+            Coming soon
+          </button>
+        </div>
+
+        <!-- Discord -->
+        <div class="chan-card opacity-80">
+          <div class="flex items-center gap-3 mb-3">
+            <span class="chan-logo" style="background:#5865F2">D</span>
+            <div class="font-bold">Discord</div>
+          </div>
+          <p class="text-xs text-ink/60 mb-4">Announcements to server channels.</p>
+          <button class="w-full bg-white border border-line text-ink/60 text-xs font-bold py-2.5 rounded-lg">
+            Coming soon
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== HELP / NEXT STEPS ===== -->
+      <div class="card p-6 grid lg:grid-cols-[1fr_auto] gap-4 items-center">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-brand-50 text-brand-700 grid place-items-center">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div>
+            <h3 class="font-bold">Why does Schedara need access?</h3>
+            <p class="text-sm text-ink/60 mt-1 leading-relaxed max-w-2xl">We use OAuth — we never see or store your password. You can revoke any connection in one click, and we ask only for the minimum permissions needed to publish, read engagement, and respond to messages on your behalf.</p>
+          </div>
+        </div>
+        <a href="#" class="inline-flex items-center justify-center gap-1.5 bg-white border border-line text-ink text-sm font-bold px-5 py-2.5 rounded-lg hover:border-brand-300">
+          Read security docs
+          <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

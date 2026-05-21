@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in · Schedara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
+          colors: {
+            ink:   '#021b2e',
+            paper: '#f5fefe',
+            line:  '#e3e9ee',
+            brand: {
+              50:'#eef5fb',100:'#dceaf5',200:'#b4cfe8',300:'#8bb4dc',
+              400:'#65a1d8',500:'#4a8ccc',600:'#2f76bd',700:'#235b95',800:'#18406d',
+            },
+          },
+          boxShadow: { pop: '0 24px 80px -12px rgba(2,27,46,0.25)' },
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="assets/schedara.css" />
+  <style>
+    .auth-bg {
+      background:
+        radial-gradient(60% 50% at 20% 15%, rgba(101,161,216,0.25) 0%, transparent 60%),
+        radial-gradient(50% 50% at 90% 90%, rgba(101,161,216,0.18) 0%, transparent 55%),
+        linear-gradient(160deg, #021b2e 0%, #082f4d 100%);
+    }
+    .grid-overlay {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 80%);
+    }
+    .schedara-wing {
+      stroke: #65a1d8;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      fill: none;
+    }
+    /* Form input */
+    .field {
+      display: block; width: 100%;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 13px 14px;
+      font-size: 15px; font-family: inherit; color: var(--ink);
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field:focus { outline: none; border-color: var(--brand-400); box-shadow: 0 0 0 4px rgba(101,161,216,0.18); }
+    .field-wrap { position: relative; }
+    .field-wrap .lead-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--ink-40);
+    }
+    .field-wrap input.has-icon { padding-left: 42px; }
+    .field-wrap .trail-btn {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--ink-40); cursor: pointer;
+      background: transparent; border: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <main class="min-h-screen grid lg:grid-cols-[1.05fr_1fr]">
+
+    <!-- ===== Brand panel ===== -->
+    <aside class="auth-bg text-white relative overflow-hidden hidden lg:flex flex-col p-12 xl:p-16">
+      <div class="absolute inset-0 grid-overlay pointer-events-none"></div>
+
+      <!-- Logo -->
+      <a href="index.html" class="relative flex items-center gap-3">
+        <span class="s-mark invert">
+          <svg viewBox="0 0 32 32" class="schedara-wing" style="stroke: var(--ink);">
+            <path d="M4 22 C 10 13, 19 10, 28 11"/>
+            <path d="M8 22 C 13 16, 20 14, 27 15" opacity=".7"/>
+            <path d="M12 22 C 16 19, 22 17, 27 19" opacity=".45"/>
+          </svg>
+        </span>
+        <div>
+          <div class="font-extrabold text-xl leading-none">Schedara</div>
+          <div class="text-[11px] tracking-[2px] uppercase text-white/50 mt-1">Smart Scheduling Elevated</div>
+        </div>
+      </a>
+
+      <!-- Headline -->
+      <div class="relative mt-16 max-w-md">
+        <h1 class="text-4xl xl:text-5xl font-extrabold leading-[1.05] tracking-tight">
+          Welcome back.<br/>
+          <span class="text-brand-400">Let's ship today's posts.</span>
+        </h1>
+        <p class="mt-5 text-white/65 text-lg leading-relaxed">
+          Plan, publish, and measure across every social channel — from one calmer workspace.
+        </p>
+      </div>
+
+      <!-- Stat trio -->
+      <div class="relative mt-auto pt-12 grid grid-cols-3 gap-6">
+        <div>
+          <div class="text-3xl font-extrabold tracking-tight">12k+</div>
+          <div class="text-white/50 text-xs mt-1">Teams worldwide</div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold tracking-tight">41%</div>
+          <div class="text-white/50 text-xs mt-1">Avg. follower growth</div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold tracking-tight">7 hrs</div>
+          <div class="text-white/50 text-xs mt-1">Saved per week</div>
+        </div>
+      </div>
+
+      <!-- Floating quote -->
+      <div class="relative mt-8 bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-5 max-w-md">
+        <p class="text-white/85 text-sm leading-relaxed">"We retired three tools and grew engaged followers 41% in one quarter. Schedara is the only marketing tool the whole team opens daily."</p>
+        <div class="mt-4 flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-300 to-brand-700"></div>
+          <div>
+            <div class="text-sm font-bold">Priya Anand</div>
+            <div class="text-white/50 text-xs">Head of Brand · NorthSails Apparel</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== Form panel ===== -->
+    <section class="bg-paper flex flex-col">
+      <!-- Mobile-only header -->
+      <header class="lg:hidden flex items-center justify-between p-5 border-b border-line bg-white">
+        <a href="index.html" class="flex items-center gap-2.5">
+          <span class="s-mark">
+            <svg viewBox="0 0 32 32" class="schedara-wing">
+              <path d="M4 22 C 10 13, 19 10, 28 11"/>
+              <path d="M8 22 C 13 16, 20 14, 27 15" opacity=".7"/>
+              <path d="M12 22 C 16 19, 22 17, 27 19" opacity=".45"/>
+            </svg>
+          </span>
+          <span class="font-extrabold text-lg">Schedara</span>
+        </a>
+        <a href="index.html" class="text-sm font-semibold text-ink/60">← Home</a>
+      </header>
+
+      <div class="flex-1 grid place-items-center px-6 py-12 lg:py-0">
+        <div class="w-full max-w-md">
+          <!-- Eyebrow + heading -->
+          <div class="mb-8">
+            <div class="text-xs font-bold uppercase tracking-[2px] text-brand-600 mb-3">Sign in</div>
+            <h2 class="text-3xl font-extrabold tracking-tight">Welcome back to Schedara</h2>
+            <p class="mt-2 text-ink/60">Enter your details to access your workspace.</p>
+          </div>
+
+          <!-- Social buttons -->
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <button class="flex items-center justify-center gap-2 bg-white border border-line rounded-xl py-3 font-semibold text-sm hover:border-brand-300 transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+              Google
+            </button>
+            <button class="flex items-center justify-center gap-2 bg-white border border-line rounded-xl py-3 font-semibold text-sm hover:border-brand-300 transition">
+              <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#F25022" d="M2 2h10v10H2z"/><path fill="#7FBA00" d="M12 2h10v10H12z"/><path fill="#00A4EF" d="M2 12h10v10H2z"/><path fill="#FFB900" d="M12 12h10v10H12z"/></svg>
+              Microsoft
+            </button>
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center gap-3 my-6 text-xs text-ink/40 font-semibold uppercase tracking-wider">
+            <div class="flex-1 h-px bg-line"></div>
+            or with email
+            <div class="flex-1 h-px bg-line"></div>
+          </div>
+
+          <!-- Form -->
+          <form class="space-y-4" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+            <div>
+              <label class="block text-xs font-bold uppercase tracking-wider text-ink/60 mb-2">Work email</label>
+              <div class="field-wrap">
+                <svg class="lead-icon w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg>
+                <input type="email" required value="priya@northsails.com" class="field has-icon" placeholder="you@company.com" />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-ink/60">Password</label>
+                <a href="#" class="text-xs font-bold text-brand-600 hover:text-brand-700">Forgot?</a>
+              </div>
+              <div class="field-wrap">
+                <svg class="lead-icon w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                <input id="pwd" type="password" required value="••••••••••" class="field has-icon" placeholder="Enter password" />
+                <button type="button" class="trail-btn" onclick="const p=document.getElementById('pwd'); p.type = p.type==='password' ? 'text' : 'password';">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <label class="flex items-center gap-2 text-sm text-ink/70 select-none cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 accent-brand-500" checked>
+              Keep me signed in for 30 days
+            </label>
+
+            <button type="submit" class="w-full bg-ink text-white font-bold py-3.5 rounded-xl hover:bg-brand-800 transition shadow-pop flex items-center justify-center gap-2">
+              Sign in to Schedara
+              <svg class="w-4 h-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 10h12M11 5l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+
+          <!-- SSO -->
+          <div class="mt-6 text-center">
+            <a href="#" class="text-sm text-ink/60 hover:text-ink font-semibold inline-flex items-center gap-1.5">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Sign in with SSO
+            </a>
+          </div>
+
+          <!-- Bottom -->
+          <p class="mt-8 text-center text-sm text-ink/60">
+            New to Schedara?
+            <a href="#" class="font-bold text-brand-600 hover:text-brand-700">Create a free account</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer line -->
+      <footer class="px-6 py-5 border-t border-line text-xs text-ink/50 flex items-center justify-between flex-wrap gap-3">
+        <div>© 2026 Schedara, Inc.</div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-ink">Privacy</a>
+          <a href="#" class="hover:text-ink">Terms</a>
+          <a href="#" class="hover:text-ink">Security</a>
+          <span class="inline-flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-mint-500" style="background:var(--mint)"></span>All systems normal</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+</body>
+</html>
